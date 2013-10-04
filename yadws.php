@@ -9,11 +9,18 @@ Description: Yet Another Dynamic Wordpress Slider (YADWS). This is just another 
 License: GPL2+
 */
 
-    include_once dirname( __FILE__ ).'/yadws_install.php';
-    
-    include_once dirname( __FILE__ ).'/yadws_admin.php';
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+    die;
+}
 
-	require_once dirname( __FILE__ ).'/yadws_frontend.php';
+require_once( plugin_dir_path( __FILE__ ) . 'class-yadws.php' );
 
+// TODO: Register hooks that are fired when the plugin is activated or deactivated.
+// When the plugin is deleted, the uninstall.php file is loaded.
+//register_activation_hook( __FILE__, array( 'YADWS', 'activate' ) );
+//register_deactivation_hook( __FILE__, array( 'YADWS', 'deactivate' ) );
+
+add_action( 'plugins_loaded', array( 'YADWS', 'get_instance' ) );
 
 ?>
