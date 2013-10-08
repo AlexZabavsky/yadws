@@ -49,11 +49,14 @@ class YADWS {
         add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
         // Add the options page and menu item.
-          add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+        add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
 
         // Add an action link pointing to the options page.
         $plugin_basename = plugin_basename( plugin_dir_path( __FILE__ ) . 'yadws.php' );
         add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
+
+        add_shortcode('YADWS', array($this, 'yadws_shortcode'));
+        
         /*
         // Load admin style sheet and JavaScript.
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
@@ -73,7 +76,6 @@ class YADWS {
       * Load the plugin text domain for translation.
       */
     public function load_plugin_textdomain() {
-
         $domain = $this->plugin_slug;
         $locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
@@ -86,7 +88,6 @@ class YADWS {
       * @param	int	$blog_id ID of the new blog.
       */
     public function activate_new_site( $blog_id ) {
-    
         if ( 1 !== did_action( 'wpmu_new_blog' ) )
             return;
 
@@ -106,7 +107,6 @@ class YADWS {
     * Register the administration menu for this plugin into the WordPress Dashboard menu.
     */
     public function add_plugin_admin_menu() {
-
         /*
         * Add a settings page for this plugin to the Settings menu.
         *
@@ -127,13 +127,15 @@ class YADWS {
     * Add settings action link to the plugins page.
     */
     public function add_action_links( $links ) {
-    
         return array_merge(
             array(
               'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
             ),
             $links
         );
+    }
+
+    public function yadws_shortcode() {
     }
 
 }
