@@ -236,32 +236,40 @@ class YADWS {
     public function enqueue_scripts() {
         //wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
     }
-
-    /**
-     * Render the settings page for this plugin.
-     */
-    public function display_plugin_admin_page() {
-        //include_once( 'views/admin.php' );
-    }
     
     /**
      * Register the administration menu for this plugin into the WordPress Dashboard menu.
      */
     public function add_plugin_admin_menu() {
-        /*
-        * Add a settings page for this plugin to the Settings menu.
-        *
-        * TODO:
-        * - Check out http://codex.wordpress.org/Administration_Menus and create a separate menu block
-        * - Change 'manage_options' to the capability that fit (http://codex.wordpress.org/Roles_and_Capabilities)
-        */
-        $this->plugin_screen_hook_suffix = add_options_page(
-            __( 'YADWS Settings', $this->plugin_slug ),
-            __( 'Add new slider', $this->plugin_slug ),
-            'manage_options',
+    
+        // TODO: Specify permissions
+        
+        $this->plugin_screen_hook_suffix = add_menu_page(
+            __( 'YADWS - Yet Another Dynamic Wordpress Slider', $this->plugin_slug ),
+            __( 'YADWS', $this->plugin_slug ),
+            1,
             $this->plugin_slug,
-            array( $this, 'display_plugin_admin_page' )
+            array( $this, 'display_admin_sliders_list' ),
+            '',
+            3.1
         );
+        add_submenu_page(
+            $this->plugin_slug,
+            __( 'List of sliders', $this->plugin_slug ),
+            __( 'Sliders list', $this->plugin_slug ),
+            1,
+            $this->plugin_slug.'_create_slider',
+            array( $this, 'display_admin_sliders_list' )
+        );        
+        add_submenu_page(
+            $this->plugin_slug,
+            __( 'Add new slider', $this->plugin_slug ),
+            __( 'Add new slider', $this->plugin_slug ),
+            1,
+            $this->plugin_slug.'_create_slider',
+            array( $this, 'display_admin_add_slider_form' )
+        );
+        remove_submenu_page($this->plugin_slug,$this->plugin_slug);
     }
 
     /**
@@ -270,12 +278,40 @@ class YADWS {
     public function add_action_links( $links ) {
         return array_merge(
             array(
-              'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+                'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
             ),
             $links
         );
     }
 
+    /**
+     * Render the list of sliders.
+     */
+    public function display_admin_sliders_list() {
+        include_once( 'views/admin-sliders-list.php' );
+    }
+
+    /**
+     * Render the slider creation form
+     */
+    public function display_admin_add_slider_form() {
+        include_once( 'views/admin-slider-form.php' );
+    }
+    
+    /**
+     * Action placeholder
+     */
+    public function action_method_name() {
+        // TODO: Define action hook callback here
+    }
+
+    /**
+     * Filter placeholder
+     */
+    public function filter_method_name() {
+        // TODO: Define filter hook callback here
+    }
+ 
     public function yadws_shortcode() {
     }
 
