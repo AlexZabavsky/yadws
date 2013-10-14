@@ -70,8 +70,6 @@ class YADWS {
 
 
         // Define custom functionality. Read more about actions and filters: http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
-        add_action( 'TODO', array( $this, 'action_method_name' ) );
-        add_filter( 'TODO', array( $this, 'filter_method_name' ) );*/
     }
 
     /**
@@ -258,7 +256,7 @@ class YADWS {
             __( 'List of sliders', $this->plugin_slug ),
             __( 'Sliders list', $this->plugin_slug ),
             1,
-            $this->plugin_slug.'_create_slider',
+            $this->plugin_slug.'_sliders_list',
             array( $this, 'display_admin_sliders_list' )
         );        
         add_submenu_page(
@@ -297,21 +295,7 @@ class YADWS {
     public function display_admin_add_slider_form() {
         include_once( 'views/admin-slider-form.php' );
     }
-    
-    /**
-     * Action placeholder
-     */
-    public function action_method_name() {
-        // TODO: Define action hook callback here
-    }
-
-    /**
-     * Filter placeholder
-     */
-    public function filter_method_name() {
-        // TODO: Define filter hook callback here
-    }
- 
+     
     public function yadws_shortcode() {
     }
 
