@@ -1,3 +1,5 @@
+//TODO: Implement AJAX requests handling
+
 (function($) {
   
     $.fn.yadws = function(option, settings) {
@@ -29,14 +31,14 @@
             carousel.init();
             $element.data('_yawds', carousel);
         });
-    }
+    };
 
     $.fn.yadws.defaultSettings = {
-        url: null,
-        str_show_all: 'Show All',
-        thumbs_per_page: 3,
-        category: '',
-        layout: [3]
+        layout: [3],
+        item_width : 100,
+        item_height : 100,
+        layout: [3],
+        type: 'slider'        
     };
     
     function YAWDSlider(settings, $element) {
@@ -50,14 +52,14 @@
     YAWDSlider.prototype = {
       
         init: function() {
-            this.$container = this.$element.find('.yadws_carousel_container');
-            this.$inner = $('<div class="yadws_inner" />');
+            this.$container = this.$element.find('.yadws-container');
+            this.$inner = $('<div class="yadws-inner" />');
             this.$container.append(this.$inner);
 
             var $this = this;
 
             if(this.settings.layout.length > 1) {
-                $this.$element.find('.yadws_btn_next,.yadws_btn_prev').bind('click', function(obj){ $this.carouselControls($this, obj.target); }).show();
+                $this.$element.find('.yadws-btn-next,.yadws-btn-prev').bind('click', function(obj){ $this.carouselControls($this, obj.target); }).show();
             }
 
             $this.reloadCarousel($this);
@@ -73,16 +75,16 @@
             var data = $this.$element.data('_yawds');
             var slide_width = data.$container.width();
             
-            if($(obj).hasClass('yadws_btn_next')) {
-                if(data.counter == $this.$inner.find('.yadws_slide').length-1) {
-                    $this.$inner.find('.yadws_slide:last').after($this.$inner.find('.yadws_slide:first'));
+            if($(obj).hasClass('yadws-btn-next')) {
+                if(data.counter == $this.$inner.find('.yadws-slide').length-1) {
+                    $this.$inner.find('.yadws-slide:last').after($this.$inner.find('.yadws-slide:first'));
                     $this.$inner.css('marginLeft', (slide_width*(-data.counter) + slide_width));
                 } else {
                     data.counter++;
                 }
             } else {
                 if(data.counter == 0) {
-                    $this.$inner.find('.$thisyadws_slide:first').before($this.$inner.find('.yadws_slide:last'));
+                    $this.$inner.find('.yadws-slide:first').before($this.$inner.find('.yadws-slide:last'));
                     $this.$inner.css('marginLeft', (-slide_width));
                 } else {
                     data.counter--;
@@ -110,17 +112,17 @@
 
                 $.each($this.settings.layout, function(slide_key, slide_data) {
                                         
-                    var $slide = $('<div class="yadws_slide" />');
+                    var $slide = $('<div class="yadws-slide" />');
                     $this.$inner.append($slide);
                     
                     $.each(slide_data, function(row_key, items_amount) {
                         
-                        var $row = $('<div class="yadws_row" />');
+                        var $row = $('<div class="yadws-row" />');
                         $slide.append($row);
 
                         for(i=0; i<items_amount; i++) {
                             var item_width = parseInt($this.$container.width() / items_amount);
-                            var $item = $('<div class="yadws_item" />').width(item_width);
+                            var $item = $('<div class="yadws-item" />').width(item_width);
                             $row.append($item);
                             
                             var itemOuterWidth = $item.outerWidth();
@@ -138,6 +140,6 @@
                 $this.$inner.width($this.$container.width() * $this.settings.layout.length);
             });
         },
-    }
+    };
 })(jQuery);
 

@@ -1,0 +1,27 @@
+.yadws-slider {
+    overflow: auto;
+    width: 100%;
+}
+.yadws-slider .yadws-btn-prev,
+.yadws-slider .yadws-btn-next {
+    float: right;
+    margin: 5px;
+    display: none;
+}
+
+.yadws-slider .yadws-container {
+    float: left;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.yadws-slider .yadws-slide {
+    float: left;
+}
+
+.yadws-slider .yadws-item {
+    float: left;
+    padding: 5px;
+}
