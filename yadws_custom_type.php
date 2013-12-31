@@ -188,9 +188,9 @@ class YADWS {
 
         $first_slide = '';
         for ( $k = 0; $k < $this->_images_per_slide; $k++ ) {
-            $first_slide .= '<a href="' . $fields['yadws_slide_1_url_' . ($k+1)][0] . '">'
+            $first_slide .= '<a href="' . $fields['yadws_slide_1_url_' . ($k+1)][0] . '" class="yadws-item">'
                 . wp_get_attachment_image( $fields['yadws_slide_imgs_1'][$k], 'yadws-large-slider' )
-                . '</a>';
+                . '</a>' . $fields['yadws_slide_1_url_' . ($k+1)][0];
         }
                      
         $template = '
@@ -199,7 +199,7 @@ class YADWS {
                     $(".yadws-' . $atts['slug'] . '").yadws(%s);
                 });
             </script>
-            <div class="yadws-' . $atts['slug'] . '">
+            <div class="yadws-slider yadws-' . $atts['slug'] . '">
                 <div class="yadws-container">
                     <div class="yadws-inner">
                         <div class="yadws-slide">
@@ -211,10 +211,8 @@ class YADWS {
         ';
         
         $shortcode = sprintf( $template, $options, $first_slide );
-        //.var_export($content, true);
         
-        //wp_enqueue_script( 'yadws-js', plugins_url( 'js/jquery.yadws.js', __FILE__ ), array( 'jquery' ));
-        
+        wp_enqueue_script( 'yadws-js', plugins_url( 'js/jquery.yadws.js', __FILE__ ), array( 'jquery' ));
         
         return $shortcode;        
     }

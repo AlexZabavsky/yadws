@@ -23,5 +23,6 @@
 
 .yadws-slider .yadws-item {
     float: left;
-    padding: 5px;
+    padding-right: 10px;
+    display: block;
 }
