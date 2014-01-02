@@ -1,30 +1,40 @@
 //TODO: Implement AJAX requests handling
 
-(function($) {
+( function( $ ) {
   
-    $.fn.yadws = function(option, settings) {
+    $.fn.yadws = function( option, settings ) {
 
-        if(typeof option === 'object') {
+        if ( typeof option === 'object' ) {
             settings = option;
         }
-        else if(typeof option === 'string') {
+        else if ( typeof option === 'string' ) {
             var values = [];
-            var elements = this.each(function() {
-                var data = $(this).data('_yawds');
-                if(data) {
-                    if($.fn.yadws.defaultSettings[option] !== undefined)
+            var elements = this.each( function() {
+                var data = $( this ).data( '_yawds' );
+                if ( data ) {
+                    if ( $.fn.yadws.defaultSettings[option] !== undefined )
                     {
-                        if(settings !== undefined) { data.settings[option] = settings; }
-                        else { values.push(data.settings[option]); }
+                        if ( settings !== undefined ) { 
+                            data.settings[option] = settings; 
+                        } else { 
+                            values.push( data.settings[option] ); 
+                        }
                     }
                 }
             });
-            if(values.length === 1) { return values[0]; }
-            if(values.length > 0) { return values; }
-            else { return elements; }
+            
+            if ( values.length === 1 ) { 
+                return values[0]; 
+            }
+            
+            if ( values.length > 0) { 
+                return values; 
+            } else { 
+                return elements; 
+            }
         }
 
-        return this.each(function() {
+        return this.each( function() {
             var $element = $(this);
             var $settings = $.extend({}, $.fn.yadws.defaultSettings, settings || {});          
             var carousel = new YAWDSlider($settings, $element);
@@ -35,10 +45,8 @@
 
     $.fn.yadws.defaultSettings = {
         layout: [3],
-        item_width : 100,
-        item_height : 100,
-        layout: [3],
-        type: 'slider'        
+        type: 'slider',
+        navigation: 'bullets'
     };
     
     function YAWDSlider(settings, $element) {
@@ -53,29 +61,40 @@
       
         init: function() {
             this.$container = this.$element.find('.yadws-container');
-            this.$inner = $('<div class="yadws-inner" />');
-            this.$container.append(this.$inner);
+            this.$inner = this.$element.find('.yadws-inner');
+            this.$slides = this.$element.find('.yadws-slide');
+            
+            this.$inner.width(this.$container.width() * this.$slides.length);
+            this.$inner.height(this.$container.height());
 
+            this.$slides.removeClass('yadws-hidden');            
+            
             var $this = this;
 
-            if(this.settings.layout.length > 1) {
-                $this.$element.find('.yadws-btn-next,.yadws-btn-prev').bind('click', function(obj){ $this.carouselControls($this, obj.target); }).show();
+            if(this.$slides.length > 1) {
+                if(this.settings.navigation.indexOf('arrows') >= 0) {
+                    this.$element.find('.yadws-next,.yadws-prev').bind('click', function(obj){ $this.carouselControls($this, obj.target); }).show();
+                }
+                if(this.settings.navigation.indexOf('bullets') >= 0) {
+                    //this.$element.find('.yadws-bullet').bind('click', function(obj){ $this.carouselControls($this, obj.target); });
+                    this.$element.find('.yadws-bullet').show();
+                }
             }
-
-            $this.reloadCarousel($this);
+            
+            console.log(this.settings);
         },
 
         /**
-         * Performs the sliding animation, should be bound to click event of controlling elements
+         * Performs sliding animation, should be bound to click event of controlling elements
          *
          * TODO: Implement "linear" navigation, that doesn't loop.
          * TODO: If linear navigation is used, disable "Previous" control in the beginning and "Next" control at the end
          */
         carouselControls: function($this, obj) {
-            var data = $this.$element.data('_yawds');
-            var slide_width = data.$container.width();
+            var data = $this.$element.data('_yawds'),
+                slide_width = data.$container.width();
             
-            if($(obj).hasClass('yadws-btn-next')) {
+            if($(obj).hasClass('yadws-next')) {
                 if(data.counter == $this.$inner.find('.yadws-slide').length-1) {
                     $this.$inner.find('.yadws-slide:last').after($this.$inner.find('.yadws-slide:first'));
                     $this.$inner.css('marginLeft', (slide_width*(-data.counter) + slide_width));
@@ -97,9 +116,41 @@
         },
 
         /**
-         * Makes AJAX request
+         * Performs sliding animation, should be bound to click event of controlling elements
+         *
+         * TODO: Implement "linear" navigation, that doesn't loop.
+         * TODO: If linear navigation is used, disable "Previous" control in the beginning and "Next" control at the end
          */
-        reloadCarousel: function($this) {
+        carouselControls: function($this, obj) {
+            var data = $this.$element.data('_yawds');
+            var slide_width = data.$container.width();
+            
+            if($(obj).hasClass('yadws-next')) {
+                if(data.counter == $this.$inner.find('.yadws-slide').length-1) {
+                    $this.$inner.find('.yadws-slide:last').after($this.$inner.find('.yadws-slide:first'));
+                    $this.$inner.css('marginLeft', (slide_width*(-data.counter) + slide_width));
+                } else {
+                    data.counter++;
+                }
+            } else {
+                if(data.counter == 0) {
+                    $this.$inner.find('.yadws-slide:first').before($this.$inner.find('.yadws-slide:last'));
+                    $this.$inner.css('marginLeft', (-slide_width));
+                } else {
+                    data.counter--;
+                }
+            }
+            
+            $this.$inner.animate({
+              'marginLeft' : slide_width*(-data.counter)
+            });
+        },
+        
+        /**
+         * Makes AJAX request
+         * @deprecated
+         */
+        makeAJAXRequest: function($this) {
             var url_params = '';
 
             if($this.settings.category) {
@@ -130,7 +181,7 @@
                             $row.width(item_width * items_amount);
                             $slide.width(item_width * items_amount);
                             var _i = i;
-                            var $image = $('<img/>').attr('src',data.entries[i]['media$thumbnails'][0]['plfile$url'])
+                            var $image = $('<img/>').attr('src',data.entries[i]['url'])
                                                     .width($item.width());
                             $item.append($image);
                         }

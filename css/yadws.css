@@ -1,11 +1,9 @@
 .yadws-slider {
     overflow: auto;
     width: 100%;
+    position: relative;
 }
-.yadws-slider .yadws-btn-prev,
-.yadws-slider .yadws-btn-next {
-    float: right;
-    margin: 5px;
+.yadws-slider .yadws-hidden {
     display: none;
 }
 
@@ -15,6 +13,43 @@
     overflow: hidden;
     position: relative;
     width: 100%;
+}
+
+.yadws-slider .yadws-navigation {
+    position: absolute;
+    bottom: 20px;
+    right: 20px
+}
+.yadws-slider .yadws-bullet {
+    float: right;
+    margin: 5px;
+    display: none;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    background-color: #FFF;
+    border: 2px solid #000;
+}
+.yadws-slider .yadws-bullet.yadws_active {
+    background-color: #000;
+    border-color: #FFF;
+}
+.yadws-slider .yadws-prev,
+.yadws-slider .yadws-next {
+    position: absolute;
+    display: none;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background-color: #FFF;
+    border: 2px solid #000;
+    top: 45%;
+}
+.yadws-slider .yadws-prev {
+    left: 0px;
+}
+.yadws-slider .yadws-next {
+    right: 0px;
 }
 
 .yadws-slider .yadws-slide {
