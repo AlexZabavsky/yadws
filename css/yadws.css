@@ -21,7 +21,7 @@
     right: 20px
 }
 .yadws-slider .yadws-bullet {
-    float: right;
+    float: left;
     margin: 5px;
     display: none;
     cursor: pointer;

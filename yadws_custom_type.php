@@ -6,7 +6,7 @@ class YADWS {
      * Maximum amount of sliders in carousel
      * @var {integer}
      */
-    public $_max_slides = 3;
+    public $_max_slides = 4;
     
     /**
      * Amount of images on one slide in the "Large" view
@@ -203,10 +203,10 @@ class YADWS {
         
         for ( $i = 1; $i <= $this->_max_slides; $i++ ) {
             
-            $slides .= '<div class="yadws-slide ' . ( $i>1 ? 'yadws-hidden' : '' ) . '">';
+            $slides .= '<div class="yadws-slide ' . ( $i > 1 ? 'yadws-hidden' : '' ) . '" data-slide-id="' . ( $i - 1 ) . '">';
             
             for ( $j = 0; $j < $this->_images_per_slide; $j++ ) {
-                $slides .= '<a href="' . $fields['yadws_slide_' . $i . '_url_' . ($j+1)][0] . '" class="yadws-item">'
+                $slides .= '<a href="' . $fields['yadws_slide_' . $i . '_url_' . ( $j + 1 )][0] . '" class="yadws-item">'
                     . wp_get_attachment_image( $fields['yadws_slide_imgs_' . $i][$j], 'yadws-large-slider' )
                     . '</a>';
             }
@@ -219,7 +219,6 @@ class YADWS {
         $navigation = '';
         
         if ( in_array( 'arrows', $fields['yadws_navigation_type'] ) ) {
-            
             $navigation .= '
                 <div class="yadws-next"></div>
                 <div class="yadws-prev"></div>
@@ -227,13 +226,10 @@ class YADWS {
         }
         
         if ( in_array( 'bullets', $fields['yadws_navigation_type'] ) ) {
-            
             $navigation .= '<div class="yadws-navigation">';
-            
             for ( $k = 0; $k < $this->_max_slides; $k++ ) {                            
-                $navigation .= '<div class="yadws-bullet"></div>';
+                $navigation .= '<div class="yadws-bullet" data-bullet-id="' . $k . '"></div>';
             }
-            
             $navigation .= '</div>';
         }
                     
