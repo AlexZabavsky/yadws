@@ -35,35 +35,54 @@ class YADWS {
      */
     public $_slider_types = array(
         'yadws-large-slider' => array(
-            'name' => 'Large Slider',
-            'width' => 315,
-            'height' => 478,
-            'layout' => '[3]',
             'type' => 'slider'
         ),
         'yadws-small-carousel' => array(
-            'name' => 'Small Carousel',
-            'width' => 100,
-            'height' => 150,
-            'layout' => '',
             'type' => 'carousel'
         ),
     );
     
+    public $_slide_types = array(
+        'images' => 'Images',
+        //'markup' => 'Markup' // TODO
+    );
+    
+    public $_settings_fields = array( 
+        'navigation', 
+        'custom_css_class',
+        'slider_width',
+        'slider_height',
+    );
+    
+    public $_image_fields = array(
+        'yadws_images', 
+        'yadws_links'
+    );
+    
     public function __construct() {
         
-        add_action( 'init', array( $this, 'yadws_sliders_init' ));
-        add_filter( 'rwmb_meta_boxes', array( $this, 'yadws_register_meta_boxes' ));
-        add_shortcode( 'yadws', array( $this, 'yadws_shortcode_handler' ));
-        
-        foreach ( $this->_slider_types as $key => $val) {
-            add_image_size( $key, $val['width'], $val['height'], true );
-        }
-        
-        wp_enqueue_style( 'yadws', plugins_url( 'css/yadws.css', __FILE__ ) );
-        wp_enqueue_script( 'yadws', plugins_url( 'js/jquery.yadws.js', __FILE__ ), array( 'jquery' ), array(), false);
+        add_action( 'init', array( $this, 'yadws_sliders_init' ) );
+        add_action( 'admin_init', array( $this, 'yadws_admin_init'  ) );
+        add_action( 'save_post', array( $this, 'yadws_save_postdata' ) );
+            
+        add_shortcode( 'yadws', array( $this, 'yadws_shortcode_handler' ) );
+                
+        wp_enqueue_style( 'yadws-css', plugins_url( 'css/yadws.css', __FILE__ ) );
+        wp_enqueue_script( 'yadws-js', plugins_url( 'js/jquery.yadws.js', __FILE__ ), array( 'jquery' ), array(), false );
     }
-    
+
+    /**
+     * Admin scripts init
+     * @return void
+     */
+    public function yadws_admin_init() {
+        
+        wp_enqueue_style( 'yadws-admin-css', plugins_url( 'css/yadws-admin.css', __FILE__ ) );
+        add_filter( 'manage_yadws_posts_columns', array( $this, 'yadws_admin_table_head' ) );
+        add_action( 'manage_yadws_posts_custom_column', array( $this, 'yadws_admin_table_columns' ) );
+        add_action( 'add_meta_boxes', array( $this, 'yadws_add_custom_boxes' ) );
+    }
+
     /**
      * Register a post type
      * @return void
@@ -85,6 +104,7 @@ class YADWS {
             'parent_item_colon' => '',
             'menu_name' => 'Madonna Sliders'
         );
+        
         $args = array(
             'labels' => $labels,
             'public' => false,
@@ -102,134 +122,191 @@ class YADWS {
             'supports' => array( 'title' ),
             'rewrite' => false
        );
+        
         register_post_type( 'yadws', $args );
     }
 
     /**
-     * Create meta boxes with additional fields
+     * Update slider list head.
      */
-    public function yadws_register_meta_boxes() {
+    function yadws_admin_table_head( $defaults ) {
         
-        $prefix = 'yadws_';
+        unset( $defaults['date'] );
+        $defaults['shortcode'] = 'Shortcode';
+        $defaults['date'] = 'Date';
         
-        $types = array();
-        
-        foreach ( $this->_slider_types as $key => $value ) {
-            $types[$key] = __( $value['name'], 'yadws' );
-        }
-        
-        $meta_boxes[] = array(
-            'id' => 'yadws_additional_fields',
-            'title' => __( 'Details', 'yadws' ),
-            'pages' => array( 'yadws' ),
-            'context' => 'normal', // try advanced
-            'priority' => 'low',
-            'autosave' => false,
-            'fields' => array(
-                array(
-                    'name' =>__( 'Slider Type', 'yadws' ),
-                    'id'   => $prefix.'slider_type',
-                    'type' => 'radio',
-                    'options' => $types
-                ),
-                array(
-                    'name' => __( 'Navigation type', 'yadws' ),
-                    'id'   => $prefix.'navigation_type',
-                    'type' => 'checkbox_list',
-                    'options' => array(
-                        'arrows' => __( 'Arrows', 'yadws' ),
-                        'bullets' => __( 'Bullets', 'yadws' ),
-                    ),
-                ),
-            ),
-        );
+        return $defaults;
+    }    
+
+    /**
+     * Update slider list columns.
+     */
+    function yadws_admin_table_columns( $column_name, $post_id ) {
     
-        for ( $i = 1; $i <= $this->_max_slides; $i++ ) {
-            
-            $image_fields = array();
-            
-            for ( $j = 1; $j <= $this->_images_per_slide; $j++ ) {
-                $image_fields[] = array(
-                    'name' => __( 'URL for image '.$j, 'yadws' ),
-                    'id'   => $prefix.'slide_'.$i.'_url_'.$j,
-                    'type' => 'text',
-                );
-            } 
-            
-            $meta_boxes[] = array(
-                'id' => $prefix.'slides_'.$i,
-                'title' => __( 'Slide '.$i, 'yadws' ),
-                'pages' => array( 'yadws' ),
-                'context' => 'normal', // try advanced
-                'priority' => 'low',
-                'autosave' => false,
-                'fields' => array_merge(
-                    array(
-                        array(
-                            'name' => 'Images ('.$this->_images_per_slide.')',
-                            'id' => $prefix.'slide_imgs_'.$i,
-                            'type' => 'plupload_image',
-                            'max_file_uploads' => 3,
-                        )
-                    ),
-                    $image_fields
-                ),
-            );
-        }
+        if ( $column_name == 'shortcode' ) {
+            $post = get_post( $post_id );
+            echo "[yadws slug='" . $post->post_name . "']";
+        }    
+    }    
+    
+    /**
+     * Add a box to the main column on the Post and Page edit screens.
+     */
+    public function yadws_add_custom_boxes() {
+
+        wp_enqueue_media();
+        wp_enqueue_script( 'yadws-admin', plugins_url( 'js/jquery.yadws-admin.js', __FILE__ ), array( 'jquery' ), array(), true );
         
-        return $meta_boxes;
+        add_meta_box( 'yadws_settings_box', __( 'Settings', 'yadws' ), array( $this, 'yadws_admin_settings_box'), 'yadws' );
+        add_meta_box( 'yadws_slides_box', __( 'Slides', 'yadws' ), array( $this, 'yadws_admin_slides_box'), 'yadws' );
+        add_meta_box( 'yadws_slides_form', __( 'Add new slide', 'yadws' ), array( $this, 'yadws_admin_slides_form'), 'yadws' );
     }
 
     /**
+     * Output settings box.
+     *
+     * @param WP_Post $post The object for the current post/page.
+    */
+    public function yadws_admin_settings_box( $post ) {
+        
+        foreach ( $this->_settings_fields as $field ) {
+            $custom_fields[$field] = get_post_meta( $post->ID, $field, true );
+        }
+        
+        include_once( 'views/admin-settings-box.php' );
+    }
+    
+    /**
+     * Output slides box.
+     *
+     * @param WP_Post $post The object for the current post/page.
+    */
+    public function yadws_admin_slides_box( $post ) {
+        
+        wp_nonce_field( 'yadws_slides_box', 'yadws_slides_box_nonce' );
+        
+        foreach ( $this->_image_fields as $field ) {
+            $custom_fields[$field] = get_post_meta( $post->ID, $field, true );
+        }
+        
+        include_once( 'views/admin-slides-box.php' );
+    }
+    
+    /**
+     * Output slides creation form.
+     *
+     * @param WP_Post $post The object for the current post/page.
+     */
+    public function yadws_admin_slides_form( $post ) {
+      
+        include_once( 'views/admin-slides-form.php' );
+    }
+
+    /**
+     * Save slides and images
+     */
+    public function yadws_save_postdata( $post_id ) {
+        
+        if ( ! isset( $_POST['yadws_slides_box_nonce'] ) ) {
+            return $post_id;
+        }
+    
+        $nonce = $_POST['yadws_slides_box_nonce'];
+    
+        if ( ! wp_verify_nonce( $nonce, 'yadws_slides_box' ) ) {
+            return $post_id;
+        }
+    
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return $post_id;
+        }
+    
+        if ( 'yadws' == $_POST['post_type'] ) {
+            if ( ! current_user_can( 'edit_page', $post_id ) ) {
+                return $post_id;
+            }
+        } else {
+            if ( ! current_user_can( 'edit_post', $post_id ) ) {
+                return $post_id;
+            }
+        }
+        
+        foreach ( $this->_settings_fields as $field ) {
+            update_post_meta( $post_id, $field, $_POST[$field] );
+        }
+
+        foreach ( $this->_image_fields as $field ) {
+            update_post_meta( $post_id, $field, $this->prepare_meta_data( $_POST[$field] ) );
+        }
+    }    
+    
+    /**
      * Create a shortcode
+       'yadws-large-slider' => array(
+            'name' => 'Large Slider',
+            'width' => 975,
+            'height' => 426,
+            'type' => 'slider'
+        ),
      */
     public function yadws_shortcode_handler( $atts, $content = null ) {
         
-        if( ! $atts['slug'] ) {
+        if ( ! $atts['slug'] ) {
             return;
         }
         
         $post = $this->getPostBySlug( $atts['slug'] );
         $fields = get_post_custom( $post->ID );
         
-        $options_array = $this->_slider_types[$fields['yadws_slider_type'][0]];
-        $options_array['navigation'] = $fields['yadws_navigation_type'];
+        foreach ( get_post_custom( $post->ID ) as $field_name => $field_value ) {
+            $fields[$field_name] = maybe_unserialize( $field_value[0] );
+        }
         
-        $options = json_encode( $options_array );
-
+        foreach ( $this->_settings_fields as $key ) {
+            $options[$key] = maybe_unserialize( $fields[$key] );
+        }
+        
         // Slides creation
                 
-        $slides = '';
+        $slides_html = '';
         
-        for ( $i = 1; $i <= $this->_max_slides; $i++ ) {
+        foreach ( $fields['yadws_images'] as $slide_id => $slide_array) {
             
-            $slides .= '<div class="yadws-slide ' . ( $i > 1 ? 'yadws-hidden' : '' ) . '" data-slide-id="' . ( $i - 1 ) . '">';
+            $slides_html .= '<div class="yadws-slide ' . ( $slide_id > 1 ? 'yadws-hidden' : '' ) . '" data-slide-id="' . ( $slide_id - 1 ) . '">';
             
-            for ( $j = 0; $j < $this->_images_per_slide; $j++ ) {
-                $slides .= '<a href="' . $fields['yadws_slide_' . $i . '_url_' . ( $j + 1 )][0] . '" class="yadws-item">'
-                    . wp_get_attachment_image( $fields['yadws_slide_imgs_' . $i][$j], 'yadws-large-slider' )
-                    . '</a>';
+            foreach ( $slide_array as $image_id => $image_number ) {
+                
+                $item_width = round( 100 / count( $slide_array ), 2 );
+                
+                $image_atts = wp_get_attachment_image_src( $image_number, array( round( $options['slider_width'] / 3 ), $options['slider_height'] ) );
+                
+                $slides_html .= '<a href="' . $fields['yadws_links'][$slide_id][$image_id] . '" class="yadws-item" style="width:' . $item_width . '%">'
+                             . '<img src="' . $image_atts[0] . '" />'
+                             . '</a>';
             }
             
-            $slides .= '</div>';
+            $slides_html .= '</div>';  
         }
-
+        
         // Navigation creation. 
         
         $navigation = '';
         
-        if ( in_array( 'arrows', $fields['yadws_navigation_type'] ) ) {
+        if ( in_array( 'arrows', $fields['navigation'] ) ) {
             $navigation .= '
-                <div class="yadws-next"></div>
-                <div class="yadws-prev"></div>
+                <div class="yadws-next" style="display: none;"></div>
+                <div class="yadws-prev" style="display: none;"></div>
             ';
         }
         
-        if ( in_array( 'bullets', $fields['yadws_navigation_type'] ) ) {
+        if ( in_array( 'bullets', $fields['navigation'] ) ) {
+            
             $navigation .= '<div class="yadws-navigation">';
-            for ( $k = 0; $k < $this->_max_slides; $k++ ) {                            
-                $navigation .= '<div class="yadws-bullet" data-bullet-id="' . $k . '"></div>';
+            
+            for ( $i = 0; $i < count($fields['yadws_images']); $i++ ) {                            
+                $navigation .= '<div class="yadws-bullet" data-bullet-id="' . $i . '"></div>';
             }
+            
             $navigation .= '</div>';
         }
                     
@@ -248,8 +325,8 @@ class YADWS {
                 %s    
             </div>
         ';
-        
-        $shortcode = sprintf( $template, $atts['slug'], $options, $atts['slug'], $slides, $navigation );
+                
+        $shortcode = sprintf( $template, $atts['slug'], json_encode( $options ), $atts['slug'], $slides_html, $navigation );
                
         return $shortcode;        
     }
@@ -262,7 +339,7 @@ class YADWS {
      */
     private function getPostBySlug( $slug ) {
         
-        $args=array(
+        $args = array(
             'name' => $slug,
             'post_type' => 'yadws',
             'post_status' => 'publish',
@@ -276,6 +353,32 @@ class YADWS {
         } else {
             return null;
         }       
+    }
+    
+    /**
+     * Sanitize and reorder array
+     * 
+     * @param   array  $array   Machine name of the post
+     * @return  array 
+     */
+    private function prepare_meta_data ( $array ) {
+        
+        $result = array();
+        $i = 0;
+        
+        foreach ( $array as $subArray ) {
+            
+            $resultSub = array();
+            $j = 0;
+            
+            foreach ( $subArray as $subValue ) {
+                 $resultSub[ ++$j ] = $subValue;
+            }
+            
+            $result[ ++$i ] = $resultSub;
+        }
+        
+        return $result;
     }
 }
 
