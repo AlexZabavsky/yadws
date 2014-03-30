@@ -79,7 +79,7 @@ class YADWS {
         
         wp_enqueue_style( 'yadws-admin-css', plugins_url( 'css/yadws-admin.css', __FILE__ ) );
         add_filter( 'manage_yadws_posts_columns', array( $this, 'yadws_admin_table_head' ) );
-        add_action( 'manage_yadws_posts_custom_column', array( $this, 'yadws_admin_table_columns' ) );
+        add_action( 'manage_yadws_posts_custom_column', array( $this, 'yadws_admin_table_columns' ), 10, 2 );
         add_action( 'add_meta_boxes', array( $this, 'yadws_add_custom_boxes' ) );
     }
 

@@ -54,29 +54,31 @@ $image_template = '
 
 <div class="yadws-slides-container">
     <?php
-        foreach ( $custom_fields['yadws_images'] as $slideId => $images ) {
-            
-            $imagesHtml = '';
-            $search = array( '{0}', '{1}', '{2}', '{3}', '{4}' );
-
-            foreach ( $images as $imageId => $image ) {
+        if ( is_array( $custom_fields['yadws_images'] ) ) {
+            foreach ( $custom_fields['yadws_images'] as $slideId => $images ) {
                 
-                $image_attributes = wp_get_attachment_image_src( $image, 'medium' );                
+                $imagesHtml = '';
+                $search = array( '{0}', '{1}', '{2}', '{3}', '{4}' );
+    
+                foreach ( $images as $imageId => $image ) {
+                    
+                    $image_attributes = wp_get_attachment_image_src( $image, 'medium' );                
+                    
+                    $replace_images = array( 
+                        $slideId,
+                        $imageId,
+                        $image,
+                        $image_attributes[0],
+                        $custom_fields['yadws_links'][$slideId][$imageId]
+                    );
+                    
+                    $imagesHtml .= str_replace( $search, $replace_images, $image_template );
+                }
                 
-                $replace_images = array( 
-                    $slideId,
-                    $imageId,
-                    $image,
-                    $image_attributes[0],
-                    $custom_fields['yadws_links'][$slideId][$imageId]
-                );
+                $replace_slides = array ( $slideId, $imagesHtml );
                 
-                $imagesHtml .= str_replace( $search, $replace_images, $image_template );
+                echo str_replace( $search, $replace_slides, $slide_template );
             }
-            
-            $replace_slides = array ( $slideId, $imagesHtml );
-            
-            echo str_replace( $search, $replace_slides, $slide_template );
         }
     ?>
 </div>
