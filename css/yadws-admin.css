@@ -1,0 +1,29 @@
+.yadws-admin-slide {
+    padding: 10px 0;
+}
+.yadws-admin-slide table {
+    margin: 10px 0;
+}
+.yadws-admin-slide td {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.yadws-admin-slide .yadws-link-input {
+    width: 100%;
+}
+.yadws-admin-slide span.yadws-separator:before {
+    content: " | ";
+}
+
+.yadws-label, 
+.yadws-input {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;
+}
+.yadws-label {
+    width: 25%;
+}
+.yadws-input {
+    width: 74%;
+}

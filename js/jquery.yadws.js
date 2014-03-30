@@ -1,10 +1,17 @@
-//TODO: Implement AJAX requests handling
+/**
+ * YADWS jQuery plugin
+ *
+ * @package   YADWS
+ * @license   GPL-2.0+
+ * @link      https://github.com/AlexZabavsky/yadws
+ *
+ */
 
 ( function( $ ) {
   
     function YAWDSlider( settings, $element ) {
         this.carousel = null;
-        this.counter = 0;
+        this.counter  = 0;
         this.settings = settings;
         this.$element = $element;
         return this;
@@ -16,11 +23,12 @@
             this.$container = this.$element.find( '.yadws-container' );
             this.$inner = this.$element.find( '.yadws-inner' );
             this.$slides = this.$element.find( '.yadws-slide' );
+            this.$slides.width( this.$container.width() );
             
             this.$inner.width( this.$container.width() * this.$slides.length );
             this.$inner.height( this.$container.height() );
 
-            this.$slides.removeClass( 'yadws-hidden' );            
+            this.$slides.removeClass( 'yadws-hidden' );
             
             var $this = this;
 
@@ -34,6 +42,7 @@
             }
             
             this.updateBullets( $this, 0 );
+                       
         },
         
         /**
@@ -150,8 +159,6 @@
     };
 
     $.fn.yadws.defaultSettings = {
-        layout: [3],
-        type: 'slider',
         navigation: 'bullets'
     };
     
