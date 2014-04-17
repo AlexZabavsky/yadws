@@ -34,7 +34,7 @@
 
             if ( this.$slides.length > 1 ) {
                 if ( this.settings.navigation.indexOf( 'arrows' ) >= 0 ) {
-                    this.$element.find( '.yadws-next,.yadws-prev' ).bind( 'click', function( obj ) { $this.arrowControls( $this, obj.target ); } ).show();
+                    this.$element.find( '.yadws-next,.yadws-prev' ).bind( 'click', function( obj ) { $this.arrowControls( $this, obj.target, false ); } ).show();
                 }
                 if ( this.settings.navigation.indexOf( 'bullets' ) >= 0 ) {
                     this.$element.find( '.yadws-bullet' ).bind( 'click', function( obj ){ $this.bulletControls( $this, obj.target ); } ).show();
@@ -42,7 +42,7 @@
             }
             
             this.updateBullets( $this, 0 );
-                       
+            setInterval( function(){ $this.arrowControls( $this, {}, true ); }, 5000 );    
         },
         
         /**
@@ -59,13 +59,13 @@
          * TODO: Implement "linear" navigation, that doesn't loop.
          * TODO: If linear navigation is used, disable "Previous" control in the beginning and "Next" control at the end
          */
-        arrowControls: function( $this, obj ) {
+        arrowControls: function( $this, obj, carousel ) {
             var data = $this.$element.data( '_yawds' ),
                 slideWidth = data.$container.width();
             
             var $slide = {};
             
-            if ( $( obj ).hasClass( 'yadws-next' ) ) {
+            if ( carousel == true || $( obj ).hasClass( 'yadws-next' ) ) {
                 if ( data.counter == $this.$inner.find( '.yadws-slide' ).length - 1 ) {
                     $slide = $this.$inner.find( '.yadws-slide:last' );
                     $slide.after( $this.$inner.find( '.yadws-slide:first' ) );
