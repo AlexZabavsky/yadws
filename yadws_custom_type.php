@@ -238,16 +238,10 @@ class YADWS {
         foreach ( $this->_image_fields as $field ) {
             update_post_meta( $post_id, $field, $this->prepare_meta_data( $_POST[$field] ) );
         }
-    }    
-    
+    }
+        
     /**
-     * Create a shortcode
-       'yadws-large-slider' => array(
-            'name' => 'Large Slider',
-            'width' => 975,
-            'height' => 426,
-            'type' => 'slider'
-        ),
+     * Output shortcode
      */
     public function yadws_shortcode_handler( $atts, $content = null ) {
         
