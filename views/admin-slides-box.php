@@ -28,10 +28,10 @@ $slide_template = '
 
 $image_template = '
     <tr data-line-id="{1}">
-        <td width="197"><img src="{3}" /></td>
+        <td width="197"><img src="{3}" class="yadws-editable-image" /></td>
         <td>
             ' . __( 'URL:', 'yadws' ) . '<br />
-            <input type="hidden" name="yadws_images[{0}][{1}]" value="{2}" />
+            <input type="hidden" name="yadws_images[{0}][{1}]" class="yadws-image-input" value="{2}" />
             <input type="text" name="yadws_links[{0}][{1}]" class="yadws-link-input" width="100%" value="{4}" />
         </td>
         <td width="80">

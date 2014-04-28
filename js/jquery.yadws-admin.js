@@ -37,7 +37,7 @@ String.prototype.format = function() {
     
     refreshSlides();
     
-    $( '.yadws-slides-container' ).on( 'click', '.button', function( e ) {
+    $( '.yadws-slides-container' ).on( 'click', '.button, .yadws-editable-image', function( e ) {
 
         var $button = $( this ),
         
@@ -45,26 +45,33 @@ String.prototype.format = function() {
 
         wp.media.editor.send.attachment = function( props, attachment ) {            
             if ( _yadwsMedia ) {
-
-                var $table = $button.siblings( 'table' ),
-                    $lines = $table.find( 'tr' );
-                    linesCount = $lines.length,
-                    imageTemplate = $( '#yadws-image-template' ).html(),
-                    slideId = $button.parent().data( 'slide-id' ),
-                    imageId = 0;
+                
+                if ( $button.hasClass( 'yadws-editable-image' ) ) {  
                     
-                if ( linesCount > 0 ) {
-                    imageId = $lines.last().data( 'line-id' ) + 1;
+                    $button.attr( 'src', attachment.sizes.medium.url );
+                    $button.closest( 'tr' ).find( '.yadws-image-input' ).val( attachment.id );
+                    
                 } else {
-                    imageId = 1;
+                
+                    var $table = $button.siblings( 'table' ),
+                        $lines = $table.find( 'tr' );
+                        linesCount = $lines.length,
+                        imageTemplate = $( '#yadws-image-template' ).html(),
+                        slideId = $button.parent().data( 'slide-id' ),
+                        imageId = 0;
+                        
+                    if ( linesCount > 0 ) {
+                        imageId = $lines.last().data( 'line-id' ) + 1;
+                    } else {
+                        imageId = 1;
+                    }
+                    
+                    var template = imageTemplate.format( slideId, imageId, attachment.id, attachment.sizes.medium.url, '' );                
+                    
+                    $table.find( 'tbody' ).append( template );
+                    
+                    refreshSlides();                
                 }
-                
-                var template = imageTemplate.format( slideId, imageId, attachment.id, attachment.sizes.medium.url, '' );                
-                
-                $table.find( 'tbody' ).append( template );
-                
-                refreshSlides();
-                
             } else {
                 return _originalAttachment.apply( this, [props, attachment] );
             }
