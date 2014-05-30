@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-29 16:51-0700\n"
+"PO-Revision-Date: 2014-05-29 23:56-0800\n"
+"Last-Translator: Alex Zabavsky <alex.zabavsky@gmail.com>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin-settings-box.php:13
+msgid "Navigation type"
+msgstr "Тип навигации"
+
+#: admin-settings-box.php:23
+msgid "Custom CSS class"
+msgstr "CSS класс"
+
+#: admin-settings-box.php:32
+msgid "Expected initial size of the slider *"
+msgstr "Ожидаемый размер слайдера"
+
+#: admin-settings-box.php:36
+msgid "Width"
+msgstr "Ширина"
+
+#: admin-settings-box.php:39
+msgid "Height"
+msgstr "Высота"
+
+#: admin-slides-box.php:14
+#: admin-slides-box.php:38
+#: shortcode.php:20
+msgid "Delete"
+msgstr "Удалить"
+
+#: admin-slides-box.php:15
+#: admin-slides-box.php:39
+#: shortcode.php:21
+msgid "Move Up"
+msgstr "Вверх"
+
+#: admin-slides-box.php:16
+#: admin-slides-box.php:40
+#: shortcode.php:22
+msgid "Move Down"
+msgstr "Вниз"
+
+#: admin-slides-box.php:25
+msgid "Add image"
+msgstr "Добавить фото"
+
+#: admin-slides-box.php:33
+#: shortcode.php:15
+msgid "URL:"
+msgstr "URL:"
+
+#: admin-slides-form.php:12
+msgid "Choose slide type"
+msgstr "Тип слайдера"
+
+#: admin-slides-form.php:17
+msgid "Add slide"
+msgstr "Добавить слайд"
+
+#: yadws_custom_type.php:170
+msgid "Settings"
+msgstr "Настройки"
+
+#: yadws_custom_type.php:171
+msgid "Slides"
+msgstr "Слайды"
+
+#: yadws_custom_type.php:172
+msgid "Add new slide"
+msgstr "Добавить слайд"
+
