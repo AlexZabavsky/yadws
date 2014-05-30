@@ -64,6 +64,7 @@ class YADWS {
         add_action( 'init', array( $this, 'yadws_sliders_init' ) );
         add_action( 'admin_init', array( $this, 'yadws_admin_init'  ) );
         add_action( 'save_post', array( $this, 'yadws_save_postdata' ) );
+        add_action( 'plugins_loaded', array( $this, 'yadws_textdomain' ) );
             
         add_shortcode( 'yadws', array( $this, 'yadws_shortcode_handler' ) );
                 
@@ -83,6 +84,15 @@ class YADWS {
         add_action( 'add_meta_boxes', array( $this, 'yadws_add_custom_boxes' ) );
     }
 
+    /**
+     * Loads plugin text domain
+     * @return void
+     */
+    public function yadws_textdomain() {
+        
+        load_plugin_textdomain('yadws', false, basename( dirname( __FILE__ ) ) . '/languages' );
+    }
+                   
     /**
      * Register a post type
      * @return void
