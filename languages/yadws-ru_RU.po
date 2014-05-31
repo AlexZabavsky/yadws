@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-29 16:51-0700\n"
-"PO-Revision-Date: 2014-05-29 23:56-0800\n"
+"PO-Revision-Date: 2014-05-31 11:36-0800\n"
 "Last-Translator: Alex Zabavsky <alex.zabavsky@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -19,6 +19,14 @@ msgstr ""
 #: admin-settings-box.php:13
 msgid "Navigation type"
 msgstr "Тип навигации"
+
+#: admin-settings-box.php:15
+msgid "Bullets"
+msgstr "Кнопки"
+
+#: admin-settings-box.php:17
+msgid "Arrows"
+msgstr "Стрелки"
 
 #: admin-settings-box.php:23
 msgid "Custom CSS class"
@@ -65,21 +73,78 @@ msgstr "URL:"
 
 #: admin-slides-form.php:12
 msgid "Choose slide type"
-msgstr "Тип слайдера"
+msgstr "Тип слайда"
 
 #: admin-slides-form.php:17
 msgid "Add slide"
 msgstr "Добавить слайд"
 
-#: yadws_custom_type.php:170
+#: yadws_custom_type.php:103
+#: yadws_custom_type.php:105
+msgid "YADWS"
+msgstr "YADWS"
+
+#: yadws_custom_type.php:104
+msgid "YADWS Slider"
+msgstr "Слайдер"
+
+#: yadws_custom_type.php:106
+msgid "Add New"
+msgstr "Создать слайдер"
+
+#: yadws_custom_type.php:107
+msgid "Add New Slider"
+msgstr "Новый слайдер"
+
+#: yadws_custom_type.php:108
+msgid "Edit Slider"
+msgstr "Настройки"
+
+#: yadws_custom_type.php:109
+msgid "New Slider"
+msgstr "Новый слайдер"
+
+#: yadws_custom_type.php:110
+msgid "All Sliders"
+msgstr "Все слайдеры"
+
+#: yadws_custom_type.php:111
+msgid "View Slider"
+msgstr "Просмотреть"
+
+#: yadws_custom_type.php:112
+msgid "Search Sliders"
+msgstr "Поиск слайдера"
+
+#: yadws_custom_type.php:113
+msgid "No sliders found"
+msgstr "Слайдеры не найдены"
+
+#: yadws_custom_type.php:114
+msgid "No sliders found in Trash"
+msgstr "В корзине слайдеры не найдены"
+
+#: yadws_custom_type.php:120
+msgid "YADWS - Yet Another Dynamic WordPress Slider"
+msgstr "YADWS - Еще Один Динамический Слайдер для ВордПресс"
+
+#: yadws_custom_type.php:144
+msgid "Shortcode"
+msgstr "Код"
+
+#: yadws_custom_type.php:145
+msgid "Date"
+msgstr "Дата"
+
+#: yadws_custom_type.php:169
 msgid "Settings"
 msgstr "Настройки"
 
-#: yadws_custom_type.php:171
+#: yadws_custom_type.php:170
 msgid "Slides"
 msgstr "Слайды"
 
-#: yadws_custom_type.php:172
+#: yadws_custom_type.php:171
 msgid "Add new slide"
-msgstr "Добавить слайд"
+msgstr "Создать слайд"
 

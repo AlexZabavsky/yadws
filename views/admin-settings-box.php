@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents the view of a slide creation form
+ * Represents the view of a slide    creation form
  *
  * @package   YADWS
  * @license   GPL-2.0+
@@ -12,9 +12,9 @@
 <div class="yadws-field-wrapper">
     <div class="yadws-label"><?php _e( 'Navigation type', 'yadws' ); ?></div>
     <div class="yadws-input">
-        <input type="checkbox" name="navigation[]" value="bullets" <?php echo ( in_array( 'bullets', (array) $custom_fields[ 'navigation' ] ) ? 'checked="checked"' : '' );  ?> /> Bullets
+        <input type="checkbox" name="navigation[]" value="bullets" <?php echo ( in_array( 'bullets', (array) $custom_fields[ 'navigation' ] ) ? 'checked="checked"' : '' );  ?> /> <?php _e( 'Bullets', 'yadws' ); ?>
         <br />
-        <input type="checkbox" name="navigation[]" value="arrows"  <?php echo ( in_array( 'arrows', (array) $custom_fields[ 'navigation' ] ) ? 'checked="checked"' : '' );  ?> /> Arrows
+        <input type="checkbox" name="navigation[]" value="arrows"  <?php echo ( in_array( 'arrows', (array) $custom_fields[ 'navigation' ] ) ? 'checked="checked"' : '' );  ?> />  <?php _e( 'Arrows', 'yadws' ); ?>
     </div>
 </div>
 
