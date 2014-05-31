@@ -90,7 +90,7 @@ class YADWS {
      */
     public function yadws_textdomain() {
         
-        load_plugin_textdomain('yadws', false, basename( dirname( __FILE__ ) ) . '/languages' );
+        load_plugin_textdomain( 'yadws', false, basename( dirname( __FILE__ ) ) . '/languages' );
     }
                    
     /**
@@ -100,37 +100,36 @@ class YADWS {
     public function yadws_sliders_init() {
         
         $labels = array(
-            'name' => 'Madonna Sliders',
-            'singular_name' => 'Madonna Slider',
-            'add_new' => 'Add New',
-            'add_new_item' => 'Add New Slider',
-            'edit_item' => 'Edit Slider',
-            'new_item' => 'New Slider',
-            'all_items' => 'All Sliders',
-            'view_item' => 'View Slider',
-            'search_items' => 'Search Sliders',
-            'not_found' => 'No sliders found',
-            'not_found_in_trash' => 'No sliders found in Trash',
-            'parent_item_colon' => '',
-            'menu_name' => 'Madonna Sliders'
+            'name'                  => _x( 'YADWS', 'post type general name' , 'yadws' ),
+            'singular_name'         => _x( 'YADWS Slider', 'post type singular name' , 'yadws' ),
+            'menu_name'             => _x( 'YADWS', 'admin menu' , 'yadws' ),
+            'add_new'               => __( 'Add New', 'yadws' ),
+            'add_new_item'          => __( 'Add New Slider', 'yadws' ),
+            'edit_item'             => __( 'Edit Slider', 'yadws' ),
+            'new_item'              => __( 'New Slider', 'yadws' ),
+            'all_items'             => __( 'All Sliders', 'yadws' ),
+            'view_item'             => __( 'View Slider', 'yadws' ),
+            'search_items'          => __( 'Search Sliders', 'yadws' ),
+            'not_found'             => __( 'No sliders found', 'yadws' ),
+            'not_found_in_trash'    => __( 'No sliders found in Trash', 'yadws' ),
         );
         
         $args = array(
-            'labels' => $labels,
-            'public' => false,
-            'description' => 'Madonna Sliders',
-            'publicly_queryable' => false,
-            'exclude_from_search' > true,
-            'show_ui' => true,
-            'show_in_nav_menus' => true,
-            'show_in_menu' => true,
-            'query_var' => true,
-            'capability_type' => 'post',
-            'has_archive' => false,
-            'hierarchical' => false,
-            'menu_position' => 3,
-            'supports' => array( 'title' ),
-            'rewrite' => false
+            'labels'                => $labels,
+            'public'                => false,
+            'description'           => _x( 'YADWS - Yet Another Dynamic WordPress Slider', 'post type admin description' , 'yadws' ),
+            'publicly_queryable'    => false,
+            'exclude_from_search'   => true,
+            'show_ui'               => true,
+            'show_in_nav_menus'     => true,
+            'show_in_menu'          => true,
+            'query_var'             => true,
+            'capability_type'       => 'post',
+            'has_archive'           => false,
+            'hierarchical'          => false,
+            'menu_position'         => 3,
+            'supports'              => array( 'title' ),
+            'rewrite'               => false
        );
         
         register_post_type( 'yadws', $args );
@@ -142,8 +141,8 @@ class YADWS {
     function yadws_admin_table_head( $defaults ) {
         
         unset( $defaults['date'] );
-        $defaults['shortcode'] = 'Shortcode';
-        $defaults['date'] = 'Date';
+        $defaults['shortcode'] = __( 'Shortcode', 'yadws' );
+        $defaults['date'] = __( 'Date', 'yadws' );
         
         return $defaults;
     }    

@@ -21,6 +21,14 @@ msgstr ""
 msgid "Navigation type"
 msgstr ""
 
+#: admin-settings-box.php:15
+msgid "Bullets"
+msgstr ""
+
+#: admin-settings-box.php:17
+msgid "Arrows"
+msgstr ""
+
 #: admin-settings-box.php:23
 msgid "Custom CSS class"
 msgstr ""
@@ -65,14 +73,70 @@ msgstr ""
 msgid "Add slide"
 msgstr ""
 
-#: yadws_custom_type.php:170
+#: yadws_custom_type.php:103 yadws_custom_type.php:105
+msgid "YADWS"
+msgstr ""
+
+#: yadws_custom_type.php:104
+msgid "YADWS Slider"
+msgstr ""
+
+#: yadws_custom_type.php:106
+msgid "Add New"
+msgstr ""
+
+#: yadws_custom_type.php:107
+msgid "Add New Slider"
+msgstr ""
+
+#: yadws_custom_type.php:108
+msgid "Edit Slider"
+msgstr ""
+
+#: yadws_custom_type.php:109
+msgid "New Slider"
+msgstr ""
+
+#: yadws_custom_type.php:110
+msgid "All Sliders"
+msgstr ""
+
+#: yadws_custom_type.php:111
+msgid "View Slider"
+msgstr ""
+
+#: yadws_custom_type.php:112
+msgid "Search Sliders"
+msgstr ""
+
+#: yadws_custom_type.php:113
+msgid "No sliders found"
+msgstr ""
+
+#: yadws_custom_type.php:114
+msgid "No sliders found in Trash"
+msgstr ""
+
+#: yadws_custom_type.php:120
+msgid "YADWS - Yet Another Dynamic WordPress Slider"
+msgstr ""
+
+#: yadws_custom_type.php:144
+msgid "Shortcode"
+msgstr ""
+
+#: yadws_custom_type.php:145
+msgid "Date"
+msgstr ""
+
+#: yadws_custom_type.php:169
 msgid "Settings"
 msgstr ""
 
-#: yadws_custom_type.php:171
+#: yadws_custom_type.php:170
 msgid "Slides"
 msgstr ""
 
-#: yadws_custom_type.php:172
+#: yadws_custom_type.php:171
 msgid "Add new slide"
 msgstr ""
