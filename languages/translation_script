@@ -1,2 +1,2 @@
 #!/bin/bash
-xgettext --default-domain=yadws --language=PHP --keyword=__ --keyword=_e --keyword=_x --sort-by-file --package-name=counterize --package-version=1.0 *.php
+xgettext --default-domain=yadws --language=PHP --keyword=__ --keyword=_e --keyword=_x --sort-by-file --package-name=counterize --package-version=0.5 *.php
