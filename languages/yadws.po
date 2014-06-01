@@ -20,45 +20,47 @@ msgstr ""
 msgid "Navigation type"
 msgstr ""
 
-#: admin-settings-box.php:15
+#: admin-settings-box.php:16
 msgid "Bullets"
 msgstr ""
 
-#: admin-settings-box.php:17
+#: admin-settings-box.php:19
 msgid "Arrows"
 msgstr ""
 
-#: admin-settings-box.php:23
+#: admin-settings-box.php:25
 msgid "Custom CSS class"
 msgstr ""
 
-#: admin-settings-box.php:32
+#: admin-settings-box.php:34
+msgid "Rotation interval (seconds)"
+msgstr ""
+
+#: admin-settings-box.php:38
+msgid "Put 0 (zero) or leave blank for no rotation"
+msgstr ""
+
+#: admin-settings-box.php:44
 msgid "Expected initial size of the slider *"
 msgstr ""
 
-#: admin-settings-box.php:36
+#: admin-settings-box.php:48
 msgid "Width"
 msgstr ""
 
-#: admin-settings-box.php:39
+#: admin-settings-box.php:51
 msgid "Height"
 msgstr ""
 
-#: admin-slides-box.php:14
-#: admin-slides-box.php:38
-#: shortcode.php:20
+#: admin-slides-box.php:14 admin-slides-box.php:38 shortcode.php:20
 msgid "Delete"
 msgstr ""
 
-#: admin-slides-box.php:15
-#: admin-slides-box.php:39
-#: shortcode.php:21
+#: admin-slides-box.php:15 admin-slides-box.php:39 shortcode.php:21
 msgid "Move Up"
 msgstr ""
 
-#: admin-slides-box.php:16
-#: admin-slides-box.php:40
-#: shortcode.php:22
+#: admin-slides-box.php:16 admin-slides-box.php:40 shortcode.php:22
 msgid "Move Down"
 msgstr ""
 
@@ -66,16 +68,11 @@ msgstr ""
 msgid "Add image"
 msgstr ""
 
-#: admin-slides-box.php:33
-#: shortcode.php:15
+#: admin-slides-box.php:33 shortcode.php:15
 msgid "URL:"
 msgstr ""
 
-#: admin-slides-form.php:12
-msgid "Choose slide type"
-msgstr ""
-
-#: admin-slides-form.php:17
+#: admin-slides-form.php:18
 msgid "Add slide"
 msgstr ""
 

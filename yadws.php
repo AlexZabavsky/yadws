@@ -3,7 +3,7 @@
 	/*
 	Plugin Name: YADWS
 	Plugin URI: 
-	Version: 1.0
+	Version: 0.5
     Text Domain: yadws
 	Author: Alex Zabavsky
 	Description: Yet Another Dynamic Wordpress Slider

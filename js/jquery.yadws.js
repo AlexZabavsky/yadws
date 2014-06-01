@@ -10,16 +10,18 @@
 ( function( $ ) {
   
     function YAWDSlider( settings, $element ) {
-        this.carousel = null;
-        this.counter  = 0;
-        this.settings = settings;
-        this.$element = $element;
+        this.carousel   = null;
+        this.timeout_id = null;
+        this.counter    = 0;
+        this.settings   = settings;
+        this.$element   = $element;
         return this;
     }
 
     YAWDSlider.prototype = {
       
         init: function() {
+            
             this.$container = this.$element.find( '.yadws-container' );
             this.$inner = this.$element.find( '.yadws-inner' );
             this.$slides = this.$element.find( '.yadws-slide' );
@@ -41,22 +43,39 @@
                 }
             }
             
-            this.updateBullets( $this, 0 );
-            setInterval( function(){ $this.arrowControls( $this, {}, true ); }, 5000 );    
+            this.updateBullets( $this, 0 );            
+            this.restartRotation( $this );
+        },
+        
+        /**
+         * Starts automatic slider rotation. Clears previous timeout.
+         */        
+        restartRotation: function( $this ) {
+            
+            if ( $this.timeout_id ) {
+                clearInterval( $this.timeout_id );
+            }
+            
+            if ( $this.settings.rotation_interval > 0 ) {
+                $this.timeout_id = setInterval( function(){ $this.arrowControls( $this, {}, true ); }, $this.settings.rotation_interval * 1000 );
+            }
         },
         
         /**
          * Performs sliding animation, should be bound to click event of controlling elements
          */        
         updateBullets: function( $this, id ) {
+        
             $( '.yadws-bullet', $this.$element ).removeClass( 'yadws_active' );
             $( '[data-bullet-id="' + id + '"]', $this.$element ).addClass( 'yadws_active' );
+            this.restartRotation( $this );
         },
         
         /**
          * Performs sliding animation, should be bound to click event of controlling elements
          */
         arrowControls: function( $this, obj, carousel ) {
+            
             var data = $this.$element.data( '_yawds' ),
                 slideWidth = data.$container.width();
             
