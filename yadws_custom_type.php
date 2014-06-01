@@ -1,52 +1,11 @@
 <?php
 
 class YADWS {
- 
-    /**
-     * Maximum amount of sliders in carousel
-     * @var {integer}
-     */
-    public $_max_slides = 4;
     
     /**
-     * Amount of images on one slide in the "Large" view
-     * @var {integer}
-     */
-    public $_images_per_slide = 3;
-    
-    
-    /**
-     * Slider types.
-     * 
-     * Parameters:
-     * 'name'       String    Name of the slider type, as it is displayed in the admin area
-     * 'width'      integer   Width of an element
-     * 'height'     integer   Width of an element
-     * 'layout'     String    Layout of the slides
-     * 'type'       String    Type of the slider
-     * 'navigation' String    Slider navigation type
-     * 
-     * Layout examples:
-     *   [3] - one row with 3 items; 
-     *   [3,4] - two rows with 3 items on top and 4 on bottom
-     *   [3],[4] - first slide has 3 items, all the rest - 4 items  
-     * 
+     * Array of slider settings field names.
      * @var {array}
      */
-    public $_slider_types = array(
-        'yadws-large-slider' => array(
-            'type' => 'slider'
-        ),
-        'yadws-small-carousel' => array(
-            'type' => 'carousel'
-        ),
-    );
-    
-    public $_slide_types = array(
-        'images' => 'Images',
-        //'markup' => 'Markup' // TODO
-    );
-    
     public $_settings_fields = array( 
         'navigation', 
         'custom_css_class',
@@ -54,10 +13,20 @@ class YADWS {
         'slider_height',
     );
     
+    /**
+     * Image fields - images and links. For internal use only.
+     * @var {array}
+     */
     public $_image_fields = array(
         'yadws_images', 
         'yadws_links'
     );
+    
+    // TODO: Implement "Markup" slide - free form HTML slide.
+    /*public $_slide_types = array(
+        'images' => __( 'Images', 'yadws' ),
+        'markup' => __( 'Markup', 'yadws' ) 
+    );*/
     
     public function __construct() {
         
@@ -175,7 +144,7 @@ class YADWS {
      * Output settings box.
      *
      * @param WP_Post $post The object for the current post/page.
-    */
+     */
     public function yadws_admin_settings_box( $post ) {
         
         foreach ( $this->_settings_fields as $field ) {
@@ -189,7 +158,7 @@ class YADWS {
      * Output slides box.
      *
      * @param WP_Post $post The object for the current post/page.
-    */
+     */
     public function yadws_admin_slides_box( $post ) {
         
         wp_nonce_field( 'yadws_slides_box', 'yadws_slides_box_nonce' );

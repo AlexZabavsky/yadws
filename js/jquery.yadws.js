@@ -55,9 +55,6 @@
         
         /**
          * Performs sliding animation, should be bound to click event of controlling elements
-         *
-         * TODO: Implement "linear" navigation, that doesn't loop.
-         * TODO: If linear navigation is used, disable "Previous" control in the beginning and "Next" control at the end
          */
         arrowControls: function( $this, obj, carousel ) {
             var data = $this.$element.data( '_yawds' ),
