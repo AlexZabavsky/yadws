@@ -9,6 +9,7 @@ class YADWS {
     public $_settings_fields = array( 
         'navigation', 
         'custom_css_class',
+        'rotation_interval',
         'slider_width',
         'slider_height',
     );
@@ -63,7 +64,7 @@ class YADWS {
     }
                    
     /**
-     * Register a post type
+     * Registers a post type
      * @return void
      */
     public function yadws_sliders_init() {
@@ -105,7 +106,7 @@ class YADWS {
     }
 
     /**
-     * Update slider list head.
+     * Updates slider list head.
      */
     function yadws_admin_table_head( $defaults ) {
         
@@ -117,7 +118,7 @@ class YADWS {
     }    
 
     /**
-     * Update slider list columns.
+     * Updates slider list columns.
      */
     function yadws_admin_table_columns( $column_name, $post_id ) {
     
@@ -128,7 +129,7 @@ class YADWS {
     }    
     
     /**
-     * Add a box to the main column on the Post and Page edit screens.
+     * Adds a box to the main column on the Post and Page edit screens.
      */
     public function yadws_add_custom_boxes() {
 
@@ -141,7 +142,7 @@ class YADWS {
     }
 
     /**
-     * Output settings box.
+     * Outputs settings box.
      *
      * @param WP_Post $post The object for the current post/page.
      */
@@ -155,7 +156,7 @@ class YADWS {
     }
     
     /**
-     * Output slides box.
+     * Outputs slides box.
      *
      * @param WP_Post $post The object for the current post/page.
      */
@@ -171,7 +172,7 @@ class YADWS {
     }
     
     /**
-     * Output slides creation form.
+     * Outputs slides creation form.
      *
      * @param WP_Post $post The object for the current post/page.
      */
@@ -181,7 +182,7 @@ class YADWS {
     }
 
     /**
-     * Save slides and images
+     * Saves slides and images
      */
     public function yadws_save_postdata( $post_id ) {
         
@@ -219,7 +220,7 @@ class YADWS {
     }
         
     /**
-     * Output shortcode
+     * Outputs shortcode
      */
     public function yadws_shortcode_handler( $atts, $content = null ) {
         
@@ -304,7 +305,7 @@ class YADWS {
     }
 
     /**
-     * Get post by slug
+     * Gets post by slug
      * 
      * @param   String  $slug   Machine name of the post
      * @return  object  Post
@@ -328,7 +329,7 @@ class YADWS {
     }
     
     /**
-     * Sanitize and reorder array
+     * Sanitizes and reorder array
      * 
      * @param   array  $array   Machine name of the post
      * @return  array 

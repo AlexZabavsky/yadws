@@ -3,14 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-29 16:51-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2014-05-31 03:30-0800\n"
+"Last-Translator: Alex Zabavsky <alex.zabavsky@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -21,27 +20,35 @@ msgstr ""
 msgid "Navigation type"
 msgstr ""
 
-#: admin-settings-box.php:15
+#: admin-settings-box.php:16
 msgid "Bullets"
 msgstr ""
 
-#: admin-settings-box.php:17
+#: admin-settings-box.php:19
 msgid "Arrows"
 msgstr ""
 
-#: admin-settings-box.php:23
+#: admin-settings-box.php:25
 msgid "Custom CSS class"
 msgstr ""
 
-#: admin-settings-box.php:32
+#: admin-settings-box.php:34
+msgid "Rotation interval (seconds)"
+msgstr ""
+
+#: admin-settings-box.php:38
+msgid "Put 0 (zero) or leave blank for no rotation"
+msgstr ""
+
+#: admin-settings-box.php:44
 msgid "Expected initial size of the slider *"
 msgstr ""
 
-#: admin-settings-box.php:36
+#: admin-settings-box.php:48
 msgid "Width"
 msgstr ""
 
-#: admin-settings-box.php:39
+#: admin-settings-box.php:51
 msgid "Height"
 msgstr ""
 
@@ -65,15 +72,12 @@ msgstr ""
 msgid "URL:"
 msgstr ""
 
-#: admin-slides-form.php:12
-msgid "Choose slide type"
-msgstr ""
-
-#: admin-slides-form.php:17
+#: admin-slides-form.php:18
 msgid "Add slide"
 msgstr ""
 
-#: yadws_custom_type.php:103 yadws_custom_type.php:105
+#: yadws_custom_type.php:103
+#: yadws_custom_type.php:105
 msgid "YADWS"
 msgstr ""
 
@@ -140,3 +144,4 @@ msgstr ""
 #: yadws_custom_type.php:171
 msgid "Add new slide"
 msgstr ""
+
