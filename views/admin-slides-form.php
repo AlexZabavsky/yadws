@@ -7,12 +7,12 @@
  * @link      https://github.com/AlexZabavsky/yadws
  *
  */
+
+// TODO: Implement "Markup" slide - free form HTML slide.
+/*
+<label><?php _e( 'Choose slide type', 'yadws' ); ?></label>
+<select></select>
+*/
 ?>
 
-<label><?php echo __( 'Choose slide type', 'yadws' ); ?></label>
-
-<select>
-</select>
-
-<input type="button" class="button yadws-add-slide" value="<?php echo __('Add slide', 'yadws'); ?>" />
- 
+<input type="button" class="button yadws-add-slide" value="<?php _e('Add slide', 'yadws'); ?>" />
