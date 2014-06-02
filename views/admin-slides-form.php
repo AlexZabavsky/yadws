@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents the view of a slide creation form
+ * Represents a view of a slide creation form
  *
  * @package   YADWS
  * @license   GPL-2.0+

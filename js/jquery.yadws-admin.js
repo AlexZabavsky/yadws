@@ -1,5 +1,5 @@
 /**
- * Scripts for administration area
+ * YADWS scripts for administration area
  *
  * @package   YADWS
  * @license   GPL-2.0+

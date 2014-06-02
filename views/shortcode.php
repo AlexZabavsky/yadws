@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents the shorecode view DEPRECATED
+ * Represents the shortcode view
  *
  * @package   YADWS
  * @license   GPL-2.0+
