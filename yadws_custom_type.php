@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * The main plugin class
+ *
+ * @package   YADWS
+ * @license   GPL-2.0+
+ * @link      https://github.com/AlexZabavsky/yadws
+ *
+ */
+
 class YADWS {
     
     /**

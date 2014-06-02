@@ -2,7 +2,7 @@
 
 	/*
 	Plugin Name: YADWS
-	Plugin URI: 
+	Plugin URI: https://github.com/AlexZabavsky/yadws
 	Version: 0.5
     Text Domain: yadws
 	Author: Alex Zabavsky
