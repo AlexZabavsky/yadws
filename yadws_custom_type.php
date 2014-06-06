@@ -161,6 +161,24 @@ class YADWS {
             $custom_fields[$field] = get_post_meta( $post->ID, $field, true );
         }
         
+        $themes_folder = plugin_dir_path( __FILE__ ) . 'themes';
+        $themes = scandir( $themes_folder );
+        
+        foreach ( $themes as $theme_name ) {
+            
+            $theme_path = $themes_folder . '/' . $theme_name;
+            
+            if ( is_dir( $theme_path ) && $theme_name !== '.' && $theme_name !== '..' ) {
+                
+                $theme_file = $theme_path . '/' . $theme_name . '.php';
+                    
+                if ( is_file( $theme_file ) ) {
+                    include( $theme_file );
+                    $yadws_themes[$theme_name]['screenshot_url'] = plugin_dir_url( __FILE__ ) . '/themes/' . $theme_name . '/screenshot.png';
+                }
+            }
+        }
+
         include_once( 'views/admin-settings-box.php' );
     }
     

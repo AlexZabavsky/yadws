@@ -51,3 +51,19 @@
         <label><?php _e( 'Height', 'yadws' ); ?></label>
     </div>
 </div>
+
+<div class="yadws-field-wrapper">
+    <div class="yadws-label">
+        <label><?php _e( 'Theme', 'yadws' ); ?></label>
+    </div>
+    <div class="yadws-input">
+        <?php foreach ( $yadws_themes as $theme_name => $theme_fields ) : ?>
+            <dir class="yadws-theme">
+                <?php echo $theme_fields['title']; ?> <br />
+                <img src="<?php echo $theme_fields['screenshot_url']; ?>" /> <br />
+                <input type="radio" name="theme" value="<?php echo $theme_name; ?>"/> 
+            </dir>
+        <?php endforeach; ?>
+    </div>
+</div>
+
