@@ -27,3 +27,14 @@
 .yadws-input {
     width: 74%;
 }
+
+.yadws-theme {
+    text-align: center;
+    width: 150px;
+    float: left;
+    -webkit-padding-start: 0px;
+    padding: 10px 15px 10px 0;
+}
+.yadws-theme img{
+    margin: 5px 0;
+}
