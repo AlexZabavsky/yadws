@@ -61,7 +61,7 @@
             <dir class="yadws-theme">
                 <?php echo $theme_fields['title']; ?> <br />
                 <img src="<?php echo $theme_fields['screenshot_url']; ?>" /> <br />
-                <input type="radio" name="theme" value="<?php echo $theme_name; ?>"/> 
+                <input type="radio" name="theme" value="<?php echo $theme_name; ?>" <?php echo $theme_fields['checked']; ?> /> 
             </dir>
         <?php endforeach; ?>
     </div>
