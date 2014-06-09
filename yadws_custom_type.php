@@ -21,6 +21,7 @@ class YADWS {
         'rotation_interval',
         'slider_width',
         'slider_height',
+        'theme'
     );
     
     /**
@@ -173,8 +174,10 @@ class YADWS {
                 $theme_file = $theme_path . '/' . $theme_name . '.php';
                     
                 if ( is_file( $theme_file ) ) {
+                    
                     include( $theme_file );
                     $yadws_themes[$theme_name]['screenshot_url'] = plugin_dir_url( __FILE__ ) . '/themes/' . $theme_name . '/screenshot.png';
+                    $yadws_themes[$theme_name]['checked'] = ( $custom_fields['theme'] === $theme_name ? 'checked' : '' );
                 }
             }
         }
@@ -264,6 +267,12 @@ class YADWS {
         
         foreach ( $this->_settings_fields as $key ) {
             $options[$key] = maybe_unserialize( $fields[$key] );
+        }
+        
+        $theme_css_path = sprintf( 'themes/%1$s/%1$s.css', $fields['theme'] );
+        
+        if ( strlen( $fields['theme'] ) && is_file( plugin_dir_path( __FILE__ ) . $theme_css_path ) ) {
+            wp_enqueue_style( 'yadws-theme', plugins_url( $theme_css_path , __FILE__ ) );
         }
         
         // Slides creation

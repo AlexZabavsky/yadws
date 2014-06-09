@@ -1,0 +1,27 @@
+#content_wrapper .yadws-slider {
+    background-color: #FFF;
+}
+#content_wrapper .yadws-slider .yadws-navigation {
+    bottom: 14px;
+}
+#content_wrapper .yadws-slider .yadws-slide {
+    padding: 12px 0;
+}
+#content_wrapper .yadws-slider .yadws-bullet {
+    width: 21px;
+    height: 24px;
+    background: url("./images/bs_nav_but.png") no-repeat;
+    border: 0;
+    margin: 1px;
+}
+#content_wrapper .yadws-slider .yadws-bullet.yadws_active{
+    background: url("./images/bs_nav_but_act.png") no-repeat;
+}
+#content_wrapper .yadws-slider .yadws-next {
+    border: 0;
+    background: url("./images/bs_nav_but_right.png") no-repeat;
+}
+#content_wrapper .yadws-slider .yadws-prev {
+    border: 0;
+    background: url("./images/bs_nav_but_left.png") no-repeat;
+}
